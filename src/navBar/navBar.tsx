@@ -1,6 +1,6 @@
 import React from 'react';
 import placeHolderImage from '../media/image-placeholder.png'
-import { Button, CircularProgress, Snackbar } from "@material-ui/core";
+import { Button} from "@material-ui/core";
 
 const navBar = () => {
 
@@ -23,7 +23,7 @@ const navBar = () => {
       <div style={{...frowBetween, width: '70%'}}>
         <div>
         <a href='https://supersols.app'>
-             <img src={placeHolderImage} style={{width: '120px'}}/>
+             <img src={placeHolderImage} alt=" " style={{width: '120px'}}/>
         </a>  
         </div>
         <div style={{...frowBetween, width: '53%'}}>
