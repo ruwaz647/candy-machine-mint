@@ -8,8 +8,6 @@ import ASRCLogo from "./assets/Logo_gif.gif";
 
 import * as anchor from "@project-serum/anchor";
 
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { WalletDialogButton } from "@solana/wallet-adapter-material-ui";
 
@@ -18,7 +16,6 @@ import {
   awaitTransactionSignatureConfirmation,
   getCandyMachineState,
   mintOneToken,
-  shortenAddress,
 } from "./candy-machine";
 
 const ConnectButton = styled(WalletDialogButton)`
@@ -71,20 +68,6 @@ const MintContainer = styled.div`
 
 `; // add your styles here
 
-const DataContainer = styled.div`
-  padding: 10px;
-  position=relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #FFFFFF!important;
-  border: 2px solid;
-  font-size: 30px!important;
-  font-family: Helvetica Neue!important;
-  height: 90px;
-  width: 275px;
-`;
-
 const PriceContainer = styled.div`
   position=relative;
   display: flex;
@@ -104,26 +87,6 @@ const ImgContainer = styled.div`
   align-items: center;
 `;
 
-const RemainingContainer = styled.div`
-  position=relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #FFFFFF!important;
-  font-size: 38px!important;
-  font-family: Helvetica Neue!important;
-  margin-bottom: 20px;
-
-`;
-
-const DataRow = styled.div`
-  padding: 15px;
-  position=relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-`;
 
 const MintButton = styled(Button)`
   padding: 12px 32px!important;
@@ -157,11 +120,9 @@ export interface HomeProps {
 }
 
 const Home = (props: HomeProps) => {
-  const [balance, setBalance] = useState<number>();
   const [isActive, setIsActive] = useState(false); // true when countdown completes
   const [isSoldOut, setIsSoldOut] = useState(false); // true when items remaining is zero
   const [isMinting, setIsMinting] = useState(false); // true when user got to press MINT
-  const [isAvailable, setIsAvailable] = useState<number>();
 
   const [alertState, setAlertState] = useState<AlertState>({
     open: false,
@@ -233,8 +194,7 @@ const Home = (props: HomeProps) => {
       });
     } finally {
       if (wallet) {
-        const balance = await props.connection.getBalance(wallet.publicKey);
-        setBalance(balance / LAMPORTS_PER_SOL);
+
       }
       setIsMinting(false);
     }
@@ -243,8 +203,7 @@ const Home = (props: HomeProps) => {
   useEffect(() => {
     (async () => {
       if (wallet) {
-        const balance = await props.connection.getBalance(wallet.publicKey);
-        setBalance(balance / LAMPORTS_PER_SOL);
+
       }
     })();
   }, [wallet, props.connection]);
@@ -260,7 +219,6 @@ const Home = (props: HomeProps) => {
           props.connection
         );
 
-      setIsAvailable(itemsRemaining);
       setIsSoldOut(itemsRemaining === 0);
       setStartDate(goLiveDate);
       setCandyMachine(candyMachine);
