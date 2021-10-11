@@ -232,7 +232,7 @@ const Home = (props: HomeProps) => {
     </ImgContainer>
     
       <PriceContainer>
-        <p>Mint Price: 0.75 SOL </p>
+        <p>Mint Price: 0.25 SOL </p>
       </PriceContainer>
 
       <MintContainer>
